@@ -29,4 +29,17 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+UserSchema.pre("save", async function (next) {
+  try {
+    const salt = await bycrypt.genSalt(10);
+    this.password = await bycrypt.hash(this.password, salt);
+  } catch (error) {
+    next(error);
+  }
+});
+UserSchema.methods.comparePassword = async function (passwordcheck) {
+  const isMatch = await bycrypt.compare(passwordcheck, this.password);
+  return isMatch;
+};
+
 module.exports = mongoose.model("User", UserSchema);
