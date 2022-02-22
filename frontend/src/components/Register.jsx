@@ -32,7 +32,7 @@ export default function Register({ setShowRegister }) {
         <Room className="logoIcon" />
         <span>TravelApp</span>
       </div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} method='post'encType="multipart/form-data">
         <input autoFocus placeholder="username" ref={usernameRef} />
         <input type="email" placeholder="email" ref={emailRef} />
         <input
