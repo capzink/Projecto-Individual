@@ -4,21 +4,26 @@ const UserSchema = new mongoose.Schema(
   {
     username: {
       type: String,
-      require: true,
-      min: 3,
-      max: 20,
-      unique: true,
+      required: [true, "Please add a Name"],
+      trim: true,
+      lowerCase: true,
+      minlength: 4,
     },
     email: {
       type: String,
-      required: true,
-      max: 50,
+      trim: true,
+      required: [true, "Please add an Email"],
+      lowerCase: true,
+      match: [
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        "Please Provide an email",
+      ],
       unique: true,
     },
     password: {
       type: String,
-      required: true,
-      min: 6,
+      required: true["Please add a password"],
+      minLength: 6,
     },
   },
   { timestamps: true }

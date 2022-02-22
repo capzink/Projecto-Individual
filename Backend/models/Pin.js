@@ -4,17 +4,19 @@ const PinSchema = new mongoose.Schema(
   {
     username: {
       type: String,
-      required: true,
+      required: [true, "Please add a Name"],
+      trim: true,
+      lowerCase: true,
+      minlength: 4,
     },
     title: {
       type: String,
-      required: true,
+      required: [true, "Please add a Tittle"],
       min: 3,
-      max: 60,
+      max: 10,
     },
     desc: {
       type: String,
-      required: true,
       min: 3,
     },
     rating: {
@@ -25,11 +27,11 @@ const PinSchema = new mongoose.Schema(
     },
     long: {
       type: Number,
-      required: true,
+      required: [true, "Please add a Longitude"],
     },
     lat: {
       type: Number,
-      required: true,
+      required: [true, "Please add a Latitude"],
     },
   },
   { timestamps: true }
