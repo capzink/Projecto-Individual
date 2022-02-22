@@ -28,7 +28,7 @@ const login = async (req, res) => {
     if (!isPasswordCorrect) {
       return res.status(500).json("password is not valid");
     }
-    res.status(200).json({username}); //user.profile
+    res.status(200).json({username});
   } catch (error) {
     return res.status(500).json("user not found");
   }
