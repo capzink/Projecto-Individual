@@ -16,19 +16,19 @@ const createUsers = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    if (!email || !password) {
+    const { username, password } = req.body;
+    if (!username || !password) {
       return res.status(400).json("need Email and Password");
     }
-    const user = await User.findOne({ email });
-    if (!email) {
-      return res.status(500).json("email not found, pelase try a new one");
+    const user = await User.findOne({ username });
+    if (!username) {
+      return res.status(500).json("user not found, pelase try a new one");
     }
     const isPasswordCorrect = await user.comparePassword(password);
     if (!isPasswordCorrect) {
       return res.status(500).json("password is not valid");
     }
-    res.status(200).json({user}); //user.profile
+    res.status(200).json({username}); //user.profile
   } catch (error) {
     return res.status(500).json("user not found");
   }
