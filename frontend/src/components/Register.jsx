@@ -3,7 +3,7 @@ import axios from "axios";
 import { useRef, useState } from "react";
 import "./register.css";
 
-export default function Register({ setShowRegister }) {
+export default function Register({ setShowRegister, setShowLogin }) {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const usernameRef = useRef();
@@ -12,6 +12,7 @@ export default function Register({ setShowRegister }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const newUser = {
       username: usernameRef.current.value,
       email: emailRef.current.value,
@@ -22,17 +23,21 @@ export default function Register({ setShowRegister }) {
       await axios.post("/users/register", newUser);
       setError(false);
       setSuccess(true);
+      setTimeout(function () {
+        setShowRegister(false);
+        setShowLogin(true)
+      }, 1300);
     } catch (err) {
       setError(true);
     }
   };
   return (
     <div className="registerContainer">
-      <div className="logo">
+      <div className="logoReg">
         <Room className="logoIcon" />
         <span>TravelApp</span>
       </div>
-      <form onSubmit={handleSubmit} method='post'encType="multipart/form-data">
+      <form onSubmit={handleSubmit} method="post" encType="multipart/form-data">
         <input autoFocus placeholder="username" ref={usernameRef} />
         <input type="email" placeholder="email" ref={emailRef} />
         <input
@@ -41,13 +46,16 @@ export default function Register({ setShowRegister }) {
           placeholder="password"
           ref={passwordRef}
         />
+        <input type="file" name="image" accept="image/png, image/jpeg"></input>
         <button className="registerBtn" type="submit">
           Register
         </button>
         {success && (
-          <span className="success">Successfull. You can login now!</span>
+          <span className="success">Successfull. You can login now! </span>
         )}
-        {error && <span className="failure">Something went wrong!</span>}
+        {error && (
+          <span className="failure">Please fill the require information!</span>
+        )}
       </form>
       <Cancel
         className="registerCancel"

@@ -189,9 +189,12 @@ function App() {
           </>
         )}
         {currentUsername ? (
-          <button className="button logout" onClick={handleLogout}>
-            Log out
-          </button>
+          <>
+            <img className="avatar" src="https://res.cloudinary.com/ddibdenne/image/upload/v1645552376/akxkaitcp69a72rwztna.png" />
+            <button className="button logout" onClick={handleLogout}>
+              Log out
+            </button>
+          </>
         ) : (
           <div className="buttons">
             <button className="button login" onClick={() => setShowLogin(true)}>
@@ -205,7 +208,12 @@ function App() {
             </button>
           </div>
         )}
-        {showRegister && <Register setShowRegister={setShowRegister} />}
+        {showRegister && (
+          <Register
+            setShowRegister={setShowRegister}
+            setShowLogin={setShowLogin}
+          />
+        )}
         {showLogin && (
           <Login
             setShowLogin={setShowLogin}
