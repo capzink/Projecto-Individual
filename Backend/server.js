@@ -1,12 +1,18 @@
 const express = require("express");
+const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
-const app = express();
+var cors = require("cors");
+
+
+
+
 const connectDB = require("./Db/Dbconnection");
 
-const port = process.env.PORT ||
-app.use(express.json());
 
+const port = process.env.PORT 
+app.use(express.json());
+app.use(cors());
 const userRoute = require("./routes/users");
 const pinRoute = require("./routes/pins");
 const uploadRoute = require('./routes/upload')
