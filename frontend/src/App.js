@@ -6,6 +6,7 @@ import axios from "axios";
 import { format } from "timeago.js";
 import Register from "./components/Register";
 import Login from "./components/Login";
+axios.defaults.baseURL = "https://backtravelappp.herokuapp.com";
 
 function App() {
   const myStorage = window.localStorage;
@@ -51,7 +52,10 @@ function App() {
     };
 
     try {
-      const res = await axios.post("/pins", newPin);
+      const config = { header: { "Content-type": "application/json" } };
+      const res = await axios.post("api/pins",
+        newPin, config
+      );
       setPins([...pins, res.data]);
       setNewPlace(null);
     } catch (err) {
@@ -62,7 +66,10 @@ function App() {
   useEffect(() => {
     const getPins = async () => {
       try {
-        const allPins = await axios.get("/pins");
+        const allPins = await axios.get(
+          "/api/pins"
+        );
+        console.log(allPins.data);
         setPins(allPins.data);
       } catch (err) {
         console.log(err);
@@ -190,7 +197,17 @@ function App() {
         )}
         {currentUsername ? (
           <>
-            <img className="avatar" src="https://res.cloudinary.com/ddibdenne/image/upload/v1645552376/akxkaitcp69a72rwztna.png" />
+            {currentUsername === "carlos" ? (
+              <img
+                className="avatar"
+                src="https://res.cloudinary.com/ddibdenne/image/upload/v1645552376/akxkaitcp69a72rwztna.png"
+              />
+            ) : (
+              <img
+                className="avatar"
+                src="https://res.cloudinary.com/ddibdenne/image/upload/v1645552340/k6bmfmdxsfjfzq7zmung.png"
+              />
+            )}
             <button className="button logout" onClick={handleLogout}>
               Log out
             </button>

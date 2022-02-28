@@ -2,6 +2,7 @@ import { Cancel, Room } from "@material-ui/icons";
 import axios from "axios";
 import { useRef, useState } from "react";
 import "./register.css";
+//axios.defaults.baseURL = "https://backtravelappp.herokuapp.com";
 
 export default function Register({ setShowRegister, setShowLogin }) {
   const [success, setSuccess] = useState(false);
@@ -20,7 +21,8 @@ export default function Register({ setShowRegister, setShowLogin }) {
     };
 
     try {
-      await axios.post("/users/register", newUser);
+      const config = { header: { "Content-type": "application/json" } };
+      await axios.post("/api/users/register", newUser, config);
       setError(false);
       setSuccess(true);
       setTimeout(function () {
